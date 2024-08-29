@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+  body {
+    background-color: #6c757d;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20%;
+  }
+  canvas {
+    border: none;
+    background-color: #FFFFFF;
+    border-left: 2px solid #6c757d;
+    pointer: cross;
+  }
+  container: {
+    display: flex;
+    flex-direction: column
+  }
+</style>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <canvas class="square" id="0_0" width="200" height="200"></canvas>
+        <canvas class="square" id="0_1" width="200" height="200"></canvas>
+        <canvas class="square" id="0_2" width="200" height="200"></canvas>
+      </div>
+      <div>
+        <canvas class="square" id="1_0" width="200" height="200"></canvas>
+        <canvas class="square" id="1_1" width="200" height="200"></canvas>
+        <canvas class="square" id="1_2" width="200" height="200"></canvas>
+      </div>
+      <div>
+        <canvas class="square" id="2_0" width="200" height="200"></canvas>
+        <canvas class="square" id="2_1" width="200" height="200"></canvas>
+        <canvas class="square" id="2_2" width="200" height="200"></canvas>
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+// 0
+$('.square').click((link) => {
+  if (!$(link.target).hasClass('used')) {
+    const id = $(link.target).attr('id');
+    let turn = localStorage.getItem("turn");
+    if (turn === 'circle') {
+      drawCircle(id);
+      turn = 'cross';
+    } else if (turn === 'cross') {
+      drawCross(id);
+      turn = 'circle';
+    } else {
+      drawCross(id);
+      turn = 'cross';
+    }
+    const cord = id.split('_');
+    const token = turn === 'circle' ? 'X' : 'O';
+    verify(+cord[0], +cord[1], token);
+    $(link.target).addClass('used');
+    localStorage.setItem('turn', turn);
+  }
+});
+
+async function verify(x, y, token) {
+
+  const result = await fetch('http://localhost:8080/api/verify', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      x,
+      y,
+      token
+    })
+  })
+  console.log(await result.json());
+}
+
+function drawCircle(id) {
+  const text = "⭕";
+  const c = document.getElementById(id);
+  const ctx = c.getContext("2d");
+  ctx.font = "100px sans-serif";
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'center';
+  ctx.fillText(text, 100, 100);
+}
+
+function drawCross(id) {
+  const text = "❌";
+  const c = document.getElementById(id);
+  const ctx = c.getContext("2d");
+  ctx.font = "100px sans-serif";
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'center';
+  ctx.fillText(text, 100, 100);
+}
+</script>
