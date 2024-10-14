@@ -41,26 +41,5 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 }
 
 func game(x int, y int, token string) (string, error) {
-	board := [3][3]string{}
-
-	if board[x][y] == "" {
-		board[x][y] = token
-	} else {
-		return "", errors.New("invalid move, cell already taken")
-	}
-
-	for i := 0; i < 3; i++ {
-		for j := 0; j < 3; j++ {
-			// horizontal
-			fmt.Println(board[i][j])
-			// vertical
-			fmt.Println(board[j][i])
-		}
-		// diagonal
-		fmt.Println(board[i][i])
-		// diagonal invertida
-		fmt.Println(board[i][2-i])
-	}
-
-	return token, nil
+	
 }
