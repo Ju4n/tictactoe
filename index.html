@@ -12,7 +12,7 @@
     max-width: fit-content;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 20%;
+    margin-top: 2%;
   }
   canvas {
     border: none;
@@ -20,6 +20,7 @@
     border-left: 2px solid #6c757d;
   }
   .container {
+    margin: 0;
     display: flex;
     flex-direction: column;
   }
@@ -27,6 +28,10 @@
     margin-bottom: 30px;
   }
   .score {
+    margin-left: 15px;
+    margin-top: 10%;
+  }
+  .head {
     margin-left: 15px;
   }
   .hide {
@@ -38,9 +43,7 @@
 </style>
   </head>
   <body>
-    <div class="score">
-      <h1 id="scorex" class="center hide">❌ HAS WON</h1>
-      <h1 id="scoreo" class="center hide">⭕ HAS WON</h1>
+    <div class="head">
       <button id="reset" class="btn btn-warning resetb">Reset</button>
     </div>
     <div class="container">
@@ -59,6 +62,10 @@
         <canvas class="square" id="2_1" width="200" height="200"></canvas>
         <canvas class="square" id="2_2" width="200" height="200"></canvas>
       </div>
+    </div>
+    <div class="score"></div>
+    <h1 id="scorex" class="center hide">❌ HAS WON</h1>
+    <h1 id="scoreo" class="center hide">⭕ HAS WON</h1>
     </div>
   </body>
 </html>
