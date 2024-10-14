@@ -4,11 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"strconv"
-
-	//"errors"
-
 	"net/http"
+	"strconv"
 )
 
 type Request struct {
