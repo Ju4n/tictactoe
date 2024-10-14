@@ -8,7 +8,9 @@ import (
 )
 
 func main () {
+	http.HandleFunc("/api/restart", tictactoe.Restart)
 	http.HandleFunc("/api/verify", tictactoe.Verify)
+	http.HandleFunc("/api/state", tictactoe.GetState)
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "index.html")
 	})
